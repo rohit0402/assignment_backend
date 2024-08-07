@@ -4,7 +4,7 @@ const User = require("../models/userSchema");
 const verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
   console.log(token);
-  console.log('JWT_SECRET:', process.env.JWT_SECRET); // Add this line
+  console.log('JWT_SECRET:', process.env.JWT_SECRET); 
   if (!token) {
     return res.status(401).json({ success: false, message: "access denied" });
   }
