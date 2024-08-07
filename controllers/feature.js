@@ -30,6 +30,16 @@ const createCar = async (req, res) => {
   }
 };
 
+const getCar=async(req,res)=>{
+  try {
+    const car = await Car.findById(req.params.id);
+    if (!car) return res.status(404).json({ success: false, message: 'Car not found' });
+    res.json(car);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 const editCar = async (req, res) => {
   const { carImage, quantity, price, year, model } = req.body;
   try {
@@ -97,4 +107,5 @@ module.exports = {
   editCar,
   deleteCar,
   listCars,
+  getCar,
 };

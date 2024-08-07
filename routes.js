@@ -5,6 +5,7 @@ const {
   editCar,
   deleteCar,
   listCars,
+  getCar,
 } = require("./controllers/feature");
 const { verifyToken } = require("./middleware/verifytoken");
 
@@ -21,5 +22,6 @@ router.post("/createCar", verifyToken, createCar);
 router.put("/editCar/:id", verifyToken, editCar);
 router.delete("/deleteCar/:id", verifyToken, deleteCar);
 router.get("/listCars", listCars);
+router.get("/car/:id",getCar);
 
 module.exports = router;
