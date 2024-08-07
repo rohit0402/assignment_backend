@@ -4,9 +4,11 @@ const User = require("../models/userSchema");
 const createCar = async (req, res) => {
   const { carImage, quantity, price, year, model } = req.body;
   try {
-    const user = req.user;
+    let user = req.user;
     if (!user || !user.isAdmin) {
-      return res.status(403).json({ success: false, message: "Access denied. Admins only." });
+      return res
+        .status(403)
+        .json({ success: false, message: "Access denied. Admins only." });
     }
 
     let newCar = new Car({
@@ -33,7 +35,9 @@ const editCar = async (req, res) => {
   try {
     const user = req.user;
     if (!user || !user.isAdmin) {
-      return res.status(403).json({ success: false, message: "Not authorized" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
     }
 
     const carId = req.params.id;
@@ -47,7 +51,9 @@ const editCar = async (req, res) => {
       return res.status(404).json({ success: false, message: "Car not found" });
     }
 
-    res.status(200).json({ success: true, message: "Car updated successfully", car });
+    res
+      .status(200)
+      .json({ success: true, message: "Car updated successfully", car });
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });
   }
@@ -57,7 +63,9 @@ const deleteCar = async (req, res) => {
   try {
     const user = req.user;
     if (!user || !user.isAdmin) {
-      return res.status(403).json({ success: false, message: "Not authorized" });
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
     }
 
     const carId = req.params.id;
@@ -67,12 +75,13 @@ const deleteCar = async (req, res) => {
       return res.status(404).json({ success: false, message: "Car not found" });
     }
 
-    res.status(200).json({ success: true, message: "Car deleted successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Car deleted successfully" });
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });
   }
 };
-
 
 const listCars = async (req, res) => {
   try {

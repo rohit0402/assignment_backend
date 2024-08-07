@@ -13,7 +13,7 @@ const signup = async (req, res) => {
     }
     const hashpassword = await bcrypt.hash(password, 10);
     let newuser = await User.create({
-      emai: email,
+      email: email,
       password: hashpassword,
       isAdmin: false,
     });
@@ -58,7 +58,7 @@ const login = async (req, res) => {
       .json({
         success: true,
         message: "Login successful",
-        isAdmin: user.isAdmin, 
+        isAdmin: user.isAdmin,
       });
   } catch (error) {
     return res.status(402).json({ success: false, message: error.message });
@@ -66,28 +66,27 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    try {
-      res.clearCookie("token");
-  
-      return res.json({ success: true, message: "Logged out successfully" });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
-    }
-  };
-  
-  
-  const getUser = async (req, res) => {
-    const reqId = req.params.id;
-    try {
-      let user = await User.findById(reqId).select("-password");
-      if (!user) {
-        return res.status(400).json({ success: false, message: "please signup" });
-      }
-  
-      res.status(200).json({user, success: true, message: "user found" });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
-    }
-  };
+  try {
+    res.clearCookie("token");
 
-module.exports={signup,login,logout,getUser};
+    return res.json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const getUser = async (req, res) => {
+  const reqId = req.id;
+  try {
+    let user = await User.findById(reqId).select("-password");
+    if (!user) {
+      return res.status(400).json({ success: false, message: "please signup" });
+    }
+
+    res.status(200).json({ user, success: true, message: "user found" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { signup, login, logout, getUser };
