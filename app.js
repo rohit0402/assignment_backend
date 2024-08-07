@@ -8,7 +8,7 @@ const routes=require("./routes")
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: ['https://localhost:5173','https://assignment-frontend-red.vercel.app'], 
   credentials: true,
 }));
 app.use(express.json());
